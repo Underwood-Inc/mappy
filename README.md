@@ -24,9 +24,4 @@ You do **not** need to install Electron’s packaged output to play the released
 
 ---
 
-## What mappy is *not* (unchanged intent)
-
-- Not a live MMO dashboard: it targets **curated bundles** and **local persistence**, not server-authoritative anti-cheat.
-- Not a generic GIS suite: it’s **game-chart oriented** (demo/parchment modes, progress halos, lore-aware search).
-
 Latest **Releases** (short link): https://s.idling.app/mappy
