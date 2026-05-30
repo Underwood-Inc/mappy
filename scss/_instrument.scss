@@ -1,0 +1,333 @@
+// Spotlight instrument card + instrument atlas (compact list)
+
+.instrument {
+  margin-bottom: 1rem;
+  padding: 1.1rem 1.15rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--mappy-bg-panel) 90%, var(--mappy-bg-deep));
+  border: 1px solid var(--mappy-border-subtle);
+
+  &--spotlight {
+    scroll-margin-top: 5rem;
+    padding: 1.25rem 1.35rem;
+    background: color-mix(in srgb, var(--mappy-bg-panel) 94%, var(--mappy-accent-warm) 4%);
+    border-color: color-mix(in srgb, var(--mappy-accent-warm) 35%, var(--mappy-border-subtle));
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--mappy-accent-warm) 12%, transparent);
+    transition:
+      border-color var(--site-duration-fast) var(--site-ease-out),
+      box-shadow var(--site-duration-fast) var(--site-ease-out);
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--mappy-accent-warm) 48%, var(--mappy-border-subtle));
+      box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--mappy-accent-warm) 20%, transparent),
+        var(--site-shadow-soft);
+    }
+
+    .instrument__name .rich-help--badge {
+      font-size: 1.15rem;
+    }
+
+    @media (min-width: 900px) {
+      .instrument__body .instrument__meta {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem 1.25rem;
+      }
+
+      .instrument__meta > div + div {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+      }
+    }
+  }
+
+  &__spotlight-label {
+    margin: 0 0 0.5rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mappy-accent-warm);
+  }
+
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &__kao {
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    color: var(--mappy-accent-warm);
+    opacity: 0.88;
+  }
+
+  &__name {
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--mappy-text-primary);
+    line-height: 1.3;
+
+    .rich-help--badge {
+      font-family: var(--font-serif);
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: var(--mappy-fantasy-parchment);
+      padding-right: 0.85em;
+    }
+  }
+
+  &__meta {
+    margin: 0;
+    font-size: 0.88rem;
+
+    > div + div {
+      margin-top: 0.65rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid color-mix(in srgb, var(--mappy-border-subtle) 55%, transparent);
+    }
+
+    dt {
+      margin: 0 0 0.2rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mappy-accent-warm);
+    }
+
+    dd {
+      margin: 0;
+      color: var(--mappy-text-muted);
+      line-height: 1.5;
+    }
+  }
+}
+
+// Shared pillar__kao + trust__title heading style
+.pillar__kao,
+.trust__title {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  margin: 0 0 0.75rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.55rem, 2.5vw, 1.9rem);
+  font-weight: 600;
+  color: var(--mappy-fantasy-parchment);
+}
+
+.trust__kao {
+  font-family: var(--font-sans);
+  font-size: 0.82em;
+  font-weight: 400;
+  color: var(--mappy-accent-warm);
+}
+
+// Atlas — compact scannable rows per section
+.instrument-atlas {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  &__item {
+    order: var(--instrument-order, 0);
+    scroll-margin-top: 5rem;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__drawer {
+    border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--mappy-border-subtle) 70%, transparent);
+    background: color-mix(in srgb, var(--mappy-bg-deep) 35%, var(--mappy-bg-panel));
+    transition: border-color var(--site-duration-fast) var(--site-ease-out);
+
+    &:not([open]):hover {
+      border-color: color-mix(in srgb, var(--mappy-accent-warm) 20%, var(--mappy-border-subtle));
+    }
+
+    &[open] {
+      border-color: color-mix(in srgb, var(--mappy-accent-warm) 25%, var(--mappy-border-subtle));
+
+      .instrument-atlas__body {
+        grid-template-rows: 1fr;
+      }
+
+      .instrument-atlas__expand {
+        color: var(--mappy-accent-warm);
+      }
+
+      .instrument-atlas__expand--closed { display: none; }
+      .instrument-atlas__expand--open   { display: inline; }
+    }
+  }
+
+  &__summary {
+    display: grid;
+    grid-template-columns: minmax(7rem, 1.15fr) 1fr auto;
+    gap: 0.35rem 0.65rem;
+    align-items: center;
+    padding: 0.55rem 0.65rem;
+    cursor: pointer;
+    list-style: none;
+    border-radius: 8px;
+    transition: background var(--site-duration-fast) var(--site-ease-out);
+
+    &:hover {
+      background: color-mix(in srgb, var(--mappy-accent-warm) 7%, var(--mappy-bg-panel));
+
+      .instrument-atlas__expand {
+        color: var(--mappy-accent-warm);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--site-focus-ring);
+      outline-offset: -1px;
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    @media (min-width: 720px) {
+      grid-template-columns: minmax(8rem, 1.15fr) 2fr auto;
+    }
+  }
+
+  &__title-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.4rem;
+    min-width: 0;
+  }
+
+  &__title {
+    min-width: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  &__kao {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    line-height: 1.2;
+    color: var(--mappy-accent-warm);
+    opacity: 0.9;
+  }
+
+  &__peek {
+    display: none;
+    font-size: 0.8rem;
+    color: var(--mappy-text-muted);
+    line-height: 1.35;
+
+    @media (min-width: 720px) {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &__expand {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mappy-text-muted);
+    transition: color var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  &__expand--open { display: none; }  // shown only via details[open]
+
+  // When search is keeping the drawer open, dim the toggle so it's clear
+  // it isn't user-controllable right now.
+  details[data-search-open] & {
+    &__expand {
+      opacity: 0.3;
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+
+  // Animate open/close via grid-template-rows trick.
+  // Closing animation: JS adds .is-closing → CSS transitions back to 0fr.
+  &__body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.28s var(--site-ease-out);
+  }
+
+  &__drawer.is-closing &__body {
+    grid-template-rows: 0fr;
+  }
+
+  &__body-inner {
+    overflow: hidden;
+    padding: 0.65rem 0.75rem;
+    border-top: 1px solid color-mix(in srgb, var(--mappy-border-subtle) 50%, transparent);
+  }
+
+  &__what {
+    margin: 0.5rem 0 0.55rem;
+    font-size: 0.86rem;
+    color: var(--mappy-text-muted);
+    line-height: 1.5;
+  }
+
+  &__meta {
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+    font-size: 0.84rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    dt {
+      margin: 0 0 0.15rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--mappy-accent-warm);
+    }
+
+    dd {
+      margin: 0;
+      color: var(--mappy-text-muted);
+      line-height: 1.45;
+    }
+  }
+
+  &__tips {
+    padding: 0.45rem 0.55rem;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--mappy-accent-warm) 7%, var(--mappy-bg-deep));
+    border: 1px solid color-mix(in srgb, var(--mappy-accent-warm) 18%, var(--mappy-border-subtle));
+
+    @media (min-width: 640px) {
+      grid-column: 1 / -1;
+    }
+  }
+}

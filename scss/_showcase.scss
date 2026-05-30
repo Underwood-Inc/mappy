@@ -1,0 +1,127 @@
+// Screenshot / GIF showcase strip — modern framed glimpses between the hero
+// and the feature pillars. Frames drift gently (frozen for reduced motion).
+
+.showcase {
+  padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(1rem, 3vw, 2rem);
+  text-align: center;
+
+  .eyebrow--showcase {
+    margin-bottom: 0.9rem;
+  }
+
+  &__title {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    font-weight: 600;
+    line-height: 1.12;
+    color: var(--mappy-fantasy-parchment);
+  }
+
+  &__lead {
+    margin: 0 0 1.75rem;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--mappy-text-muted);
+  }
+
+  &__grid {
+    text-align: start;
+    display: grid;
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+
+    @media (min-width: 720px) {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
+    }
+  }
+
+  &__frame {
+    --shot-accent: var(--mappy-accent-warm);
+    margin: 0;
+    animation: showcase-float var(--site-float-duration) ease-in-out infinite alternate;
+
+    // Offset each frame's drift phase so the row breathes rather than bobbing in unison.
+    &--2 {
+      animation-delay: -3s;
+    }
+    &--3 {
+      animation-delay: -6s;
+    }
+  }
+
+  &__shot {
+    cursor: zoom-in;
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid color-mix(in srgb, var(--shot-accent) 38%, var(--mappy-border-subtle));
+    background: color-mix(in srgb, var(--mappy-bg-panel) 80%, var(--mappy-bg-deep));
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.4),
+      0 0 0 1px color-mix(in srgb, var(--shot-accent) 14%, transparent),
+      inset 0 0 60px color-mix(in srgb, var(--shot-accent) 8%, transparent);
+    transition:
+      transform var(--site-duration-fast) var(--site-ease-out),
+      box-shadow var(--site-duration-fast) var(--site-ease-out),
+      border-color var(--site-duration-fast) var(--site-ease-out);
+
+    // Soft accent sheen sweeping the top edge.
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--shot-accent) 16%, transparent) 0%,
+        transparent 38%
+      );
+      pointer-events: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+  }
+
+  &__frame:hover &__shot,
+  &__frame:focus-within &__shot {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--shot-accent) 65%, var(--mappy-border-subtle));
+    box-shadow:
+      0 26px 56px rgba(0, 0, 0, 0.5),
+      0 0 0 1px color-mix(in srgb, var(--shot-accent) 30%, transparent),
+      inset 0 0 70px color-mix(in srgb, var(--shot-accent) 12%, transparent);
+  }
+
+  &__caption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+    padding-inline-start: 0.85rem;
+    border-inline-start: 2px solid color-mix(in srgb, var(--shot-accent) 55%, transparent);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--mappy-text-muted);
+  }
+
+  &__kao {
+    font-size: 0.85rem;
+    color: var(--shot-accent);
+    white-space: nowrap;
+  }
+}
+
+@keyframes showcase-float {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-0.55rem);
+  }
+}

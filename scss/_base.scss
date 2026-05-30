@@ -1,0 +1,110 @@
+// Base resets, element defaults, utility classes
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--mappy-text-primary);
+  background-color: var(--mappy-bg-deep);
+  background-image: radial-gradient(
+    circle at center,
+    var(--mappy-dot-color) 0.55px,
+    transparent 0.6px
+  );
+  background-size: var(--mappy-dot-size) var(--mappy-dot-size);
+  background-attachment: fixed;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--mappy-accent-warm);
+  cursor: pointer;
+  transition: color var(--site-duration-fast) var(--site-ease-out);
+
+  &:hover {
+    color: var(--mappy-fantasy-parchment);
+  }
+
+  &:focus-visible {
+    outline: var(--site-focus-ring);
+    outline-offset: var(--site-focus-offset);
+    border-radius: 3px;
+  }
+}
+
+code {
+  font-family: ui-monospace, Consolas, 'Cascadia Code', monospace;
+  font-size: 0.9em;
+  font-weight: 500;
+  padding: 0.12em 0.4em;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--mappy-bg-deep) 55%, var(--mappy-bg-panel));
+  border: 1px solid var(--mappy-border-subtle);
+  color: var(--mappy-fantasy-parchment);
+  white-space: nowrap;
+}
+
+p code,
+li code,
+dd code,
+.catalog__search-hint code {
+  white-space: normal;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--mappy-accent-warm) 35%, transparent);
+  color: var(--mappy-text-primary);
+}
+
+// Layout helpers
+.wrap {
+  width: min(100% - 2rem, var(--max));
+  margin-inline: auto;
+}
+
+// Accessibility
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--mappy-bg-panel);
+  color: var(--mappy-text-primary);
+
+  &:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

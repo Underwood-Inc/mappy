@@ -1,0 +1,33 @@
+// Fifteen chapter color themes, shared via --section-accent on
+// .chapter-card--N and .section-drawer--N (render uses sectionIndex + 1).
+
+$_section-accent-colors: (
+  1:  #ceb26f,
+  2:  #6eb5e0,
+  3:  #9b8fd9,
+  4:  #6fcf8e,
+  5:  #e09468,
+  6:  #d4b356,
+  7:  #5ec9b8,
+  8:  #e07aaa,
+  9:  #f0c05a,
+  10: #7a9ec8,
+  11: #a89078,
+  12: #8aa3c2,
+  13: #b8a078,
+  14: #58b8a0,
+  15: #7dce9a,
+);
+
+// Default fallback for any modifier without a specific number
+.chapter-card[class*='chapter-card--'],
+.section-drawer[class*='section-drawer--'] {
+  --section-accent: var(--mappy-accent-warm);
+}
+
+@each $n, $color in $_section-accent-colors {
+  .chapter-card--#{$n},
+  .section-drawer--#{$n} {
+    --section-accent: #{$color};
+  }
+}

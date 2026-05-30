@@ -1,0 +1,92 @@
+// Call-to-action band
+
+.cta-band {
+  padding: 3rem 0;
+
+  &__inner {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 3.25rem 2rem 3rem;
+    border-radius: 16px;
+    border: 1px solid color-mix(in srgb, var(--mappy-accent-warm) 35%, transparent);
+    background:
+      radial-gradient(ellipse 70% 90% at 50% 110%, color-mix(in srgb, var(--mappy-accent-warm) 14%, transparent) 0%, transparent 70%),
+      linear-gradient(180deg,
+        color-mix(in srgb, var(--mappy-bg-panel) 92%, var(--mappy-accent-warm)) 0%,
+        var(--mappy-bg-deep) 100%
+      );
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--mappy-accent-warm) 12%, transparent) inset,
+      0 2px 40px color-mix(in srgb, var(--mappy-bg-deep) 70%, transparent);
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+
+    // Ambient top shimmer bar
+    &::before {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      top: 0;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        color-mix(in srgb, var(--mappy-accent-warm) 55%, transparent) 50%,
+        transparent 100%
+      );
+    }
+
+    &:has(.btn--primary:hover) {
+      border-color: color-mix(in srgb, var(--mappy-accent-warm) 55%, transparent);
+      box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--mappy-accent-warm) 20%, transparent) inset,
+        0 0 60px color-mix(in srgb, var(--mappy-accent-warm) 10%, transparent),
+        0 2px 40px color-mix(in srgb, var(--mappy-bg-deep) 70%, transparent);
+    }
+  }
+
+  h2 {
+    margin: 0 0 0.85rem;
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1.15;
+    color: var(--mappy-fantasy-parchment);
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 24px color-mix(in srgb, var(--mappy-accent-warm) 22%, transparent);
+  }
+
+  p {
+    max-width: 52ch;
+    margin: 0 auto 1.75rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--mappy-text-muted);
+
+    .rich-help--underline {
+      white-space: nowrap;
+    }
+  }
+
+  &__signoff {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2.25rem 0 0;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    color: color-mix(in srgb, var(--mappy-text-muted) 75%, transparent);
+
+    // Decorative rule on each side of the signoff text
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 1px;
+      background: color-mix(in srgb, var(--mappy-accent-warm) 25%, transparent);
+    }
+  }
+}

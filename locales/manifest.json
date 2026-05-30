@@ -1,0 +1,72 @@
+{
+  "baseLocale": "en",
+  "storageKey": "mappy-site-locale",
+  "locales": [
+    {
+      "id": "en",
+      "label": "English",
+      "direction": "ltr",
+      "bcp47": "en"
+    },
+    {
+      "id": "es",
+      "label": "Español",
+      "direction": "ltr",
+      "bcp47": "es"
+    },
+    {
+      "id": "zh",
+      "label": "简体中文",
+      "direction": "ltr",
+      "bcp47": "zh-Hans"
+    },
+    {
+      "id": "fr",
+      "label": "Français",
+      "direction": "ltr",
+      "bcp47": "fr"
+    },
+    {
+      "id": "de",
+      "label": "Deutsch",
+      "direction": "ltr",
+      "bcp47": "de"
+    },
+    {
+      "id": "ja",
+      "label": "日本語",
+      "direction": "ltr",
+      "bcp47": "ja"
+    },
+    {
+      "id": "pt",
+      "label": "Português",
+      "direction": "ltr",
+      "bcp47": "pt"
+    },
+    {
+      "id": "ru",
+      "label": "Русский",
+      "direction": "ltr",
+      "bcp47": "ru"
+    },
+    {
+      "id": "ko",
+      "label": "한국어",
+      "direction": "ltr",
+      "bcp47": "ko"
+    },
+    {
+      "id": "it",
+      "label": "Italiano",
+      "direction": "ltr",
+      "bcp47": "it"
+    },
+    {
+      "id": "ar",
+      "label": "العربية",
+      "direction": "rtl",
+      "bcp47": "ar"
+    }
+  ]
+}

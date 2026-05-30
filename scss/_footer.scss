@@ -1,0 +1,51 @@
+// Site footer
+
+.site-footer {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--mappy-border-subtle);
+  background: color-mix(in srgb, var(--mappy-bg-panel) 55%, var(--mappy-bg-deep));
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+  }
+
+  .brand__name--footer {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+}
+
+.fine {
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--mappy-text-muted);
+  max-width: 36rem;
+}
+
+.footer-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+
+  a {
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 0.1rem 0;
+    transition: color var(--site-duration-fast) var(--site-ease-out);
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+      text-decoration-color: color-mix(in srgb, var(--mappy-accent-warm) 70%, transparent);
+    }
+  }
+}

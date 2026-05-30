@@ -1,0 +1,160 @@
+// Site header, locale picker, brand, navigation
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  border-bottom: 1px solid var(--mappy-border-subtle);
+  background-color: var(--mappy-hero-bg);
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--mappy-bg-panel) 22%, var(--mappy-hero-bg)) 0%,
+    var(--mappy-hero-bg) 100%
+  );
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--mappy-border-subtle) 55%, transparent);
+
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem 1rem;
+    padding: 0.75rem 0;
+  }
+}
+
+.site-locale {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-inline-start: auto;
+
+  html[dir='rtl'] & {
+    margin-inline-start: 0;
+    margin-inline-end: auto;
+  }
+
+  &__label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mappy-text-muted);
+  }
+
+  &__select {
+    font: inherit;
+    font-size: 0.86rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 6px;
+    border: 1px solid var(--mappy-border-subtle);
+    background: var(--mappy-bg-panel);
+    color: var(--mappy-text-primary);
+    max-width: 11rem;
+    cursor: pointer;
+    transition:
+      border-color var(--site-duration-fast) var(--site-ease-out),
+      background var(--site-duration-fast) var(--site-ease-out),
+      box-shadow var(--site-duration-fast) var(--site-ease-out);
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--mappy-accent-warm) 40%, var(--mappy-border-subtle));
+      background: color-mix(in srgb, var(--mappy-bg-panel) 88%, var(--mappy-accent-warm) 5%);
+    }
+
+    &:focus-visible {
+      outline: var(--site-focus-ring);
+      outline-offset: var(--site-focus-offset);
+    }
+  }
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--mappy-text-primary);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: color var(--site-duration-fast) var(--site-ease-out);
+
+  &:hover {
+    color: var(--mappy-fantasy-parchment);
+
+    .brand__mark {
+      box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--mappy-accent-warm) 45%, var(--mappy-border-subtle)),
+        0 0 16px color-mix(in srgb, var(--mappy-accent-warm) 22%, transparent);
+    }
+  }
+
+  &__mark {
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px var(--mappy-border-subtle);
+    transition: box-shadow var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  &__name {
+    font-family: var(--font-serif);
+    font-size: 1.45rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+
+    &--footer {
+      margin: 0 0 0.35rem;
+    }
+  }
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+
+  a {
+    text-decoration: none;
+    color: var(--mappy-text-muted);
+    padding: 0.35rem 0.5rem;
+    border-radius: 6px;
+    transition:
+      color var(--site-duration-fast) var(--site-ease-out),
+      background var(--site-duration-fast) var(--site-ease-out);
+
+    &:not(.site-nav__cta):hover {
+      color: var(--mappy-text-primary);
+      background: color-mix(in srgb, var(--mappy-bg-panel) 70%, var(--mappy-accent-warm) 6%);
+    }
+  }
+
+  &__cta {
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--mappy-accent-warm) 22%, var(--mappy-bg-panel));
+    border: 1px solid color-mix(in srgb, var(--mappy-accent-warm) 55%, var(--mappy-border-subtle));
+    color: var(--mappy-fantasy-parchment) !important;
+    cursor: pointer;
+    transition:
+      background var(--site-duration-fast) var(--site-ease-out),
+      border-color var(--site-duration-fast) var(--site-ease-out),
+      color var(--site-duration-fast) var(--site-ease-out),
+      transform var(--site-duration-fast) var(--site-ease-out),
+      box-shadow var(--site-duration-fast) var(--site-ease-out);
+
+    &:hover {
+      background: color-mix(in srgb, var(--mappy-accent-warm) 36%, var(--mappy-bg-panel));
+      border-color: var(--mappy-accent-warm);
+      color: var(--mappy-text-primary) !important;
+      transform: translateY(-1px);
+      box-shadow: var(--site-shadow-soft);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+  }
+}

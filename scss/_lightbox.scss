@@ -1,0 +1,128 @@
+// Lightbox overlay — <mappy-lightbox> custom element
+
+mappy-lightbox {
+  display: none; // Hidden until [open] — keeps backdrop out of paint
+}
+
+mappy-lightbox[open],
+mappy-lightbox[data-closing] {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--mappy-bg-deep) 88%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  mappy-lightbox:not([data-instant]):not([data-closing]) & {
+    animation: lightbox-fade-in 0.22s ease forwards;
+  }
+
+  mappy-lightbox[data-closing] & {
+    animation: lightbox-fade-out 0.18s ease forwards;
+  }
+}
+
+.lightbox__dialog {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  pointer-events: none; // clicks fall through to backdrop to close
+
+  mappy-lightbox:not([data-instant]):not([data-closing]) & {
+    animation: lightbox-scale-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  mappy-lightbox[data-closing] & {
+    animation: lightbox-scale-out 0.18s ease forwards;
+  }
+}
+
+.lightbox__close {
+  pointer-events: auto;
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--mappy-accent-warm) 35%, transparent);
+  background: color-mix(in srgb, var(--mappy-bg-panel) 85%, transparent);
+  color: var(--mappy-text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    background: color-mix(in srgb, var(--mappy-accent-warm) 18%, var(--mappy-bg-panel));
+    color: var(--mappy-fantasy-parchment);
+    border-color: color-mix(in srgb, var(--mappy-accent-warm) 60%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mappy-accent-warm);
+    outline-offset: 3px;
+  }
+}
+
+.lightbox__img {
+  pointer-events: auto;
+  display: block;
+  max-width: min(92vw, 1200px);
+  max-height: 82vh;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--mappy-accent-warm) 30%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--mappy-accent-warm) 12%, transparent) inset,
+    0 24px 80px color-mix(in srgb, var(--mappy-bg-deep) 80%, transparent),
+    0 0 60px color-mix(in srgb, var(--mappy-accent-warm) 8%, transparent);
+  object-fit: contain;
+}
+
+.lightbox__caption {
+  pointer-events: none;
+  margin: 0.875rem 0 0;
+  font-size: 0.9rem;
+  color: var(--mappy-text-muted);
+  text-align: center;
+  max-width: 60ch;
+}
+
+// Prevent body scroll while lightbox is open
+body.lightbox-open {
+  overflow: hidden;
+}
+
+@keyframes lightbox-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes lightbox-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes lightbox-scale-in {
+  from { opacity: 0; transform: scale(0.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes lightbox-scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.95); }
+}

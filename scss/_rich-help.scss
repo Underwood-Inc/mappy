@@ -1,0 +1,84 @@
+// Rich mentor tooltip triggers (matches in-app mappy-help-tooltip)
+
+.rich-help {
+  display: inline;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  font: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  text-align: inherit;
+
+  &:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--mappy-accent-warm) 55%, transparent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  &--underline {
+    text-decoration: var(--mappy-rich-help-text-decoration);
+    text-decoration-color: var(--mappy-rich-help-text-decoration-color);
+    text-underline-offset: 0.2em;
+    cursor: var(--mappy-rich-help-cursor);
+    transition:
+      color var(--site-duration-fast) var(--site-ease-out),
+      text-decoration-color var(--site-duration-fast) var(--site-ease-out);
+
+    &:hover {
+      color: var(--mappy-fantasy-parchment);
+      text-decoration-color: var(--mappy-accent-warm);
+    }
+  }
+
+  &--badge {
+    position: relative;
+    cursor: var(--mappy-rich-help-cursor);
+    overflow: visible;
+    transition: color var(--site-duration-fast) var(--site-ease-out);
+
+    &:hover {
+      color: var(--mappy-fantasy-parchment);
+    }
+
+    &::after {
+      content: '?';
+      position: absolute;
+      top: 0;
+      right: -0.15em;
+      transform: translate(100%, -15%);
+      display: grid;
+      place-items: center;
+      width: max(8px, 0.72em);
+      height: max(8px, 0.72em);
+      max-width: 10px;
+      max-height: 10px;
+      border-radius: 50%;
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      font-size: max(6px, 0.46em);
+      font-weight: 700;
+      line-height: 1;
+      pointer-events: none;
+      color: color-mix(in srgb, var(--mappy-accent-warm) 78%, transparent);
+      background: color-mix(in srgb, var(--mappy-accent-warm) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--mappy-accent-warm) 24%, transparent);
+      opacity: 0.9;
+      transition:
+        opacity var(--site-duration-fast) var(--site-ease-out),
+        background var(--site-duration-fast) var(--site-ease-out),
+        border-color var(--site-duration-fast) var(--site-ease-out),
+        transform var(--site-duration-fast) var(--site-ease-out);
+    }
+
+    &:hover::after {
+      opacity: 1;
+      background: color-mix(in srgb, var(--mappy-accent-warm) 28%, transparent);
+      border-color: color-mix(in srgb, var(--mappy-accent-warm) 55%, transparent);
+      transform: translate(100%, -15%) scale(1.08);
+    }
+  }
+}

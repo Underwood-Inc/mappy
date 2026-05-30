@@ -1,0 +1,93 @@
+// Shifting marketing backdrop — slow-drifting gradient mesh behind all content.
+// Pure CSS (no JS). Sits in a fixed layer below #site-content; frozen for
+// users who request reduced motion (see _reduced-motion.scss).
+
+.site-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: var(--mappy-aurora-opacity);
+
+  // Two drifting blobs of warm/cool light that cross-fade as they wander.
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -25%;
+    background-repeat: no-repeat;
+    will-change: transform;
+  }
+
+  &::before {
+    background-image:
+      radial-gradient(
+        38% 42% at 18% 24%,
+        color-mix(in srgb, var(--mappy-aurora-gold) 70%, transparent) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        44% 40% at 82% 30%,
+        color-mix(in srgb, var(--mappy-aurora-azure) 60%, transparent) 0%,
+        transparent 62%
+      ),
+      radial-gradient(
+        50% 48% at 50% 88%,
+        color-mix(in srgb, var(--mappy-aurora-violet) 55%, transparent) 0%,
+        transparent 66%
+      );
+    filter: blur(70px) saturate(115%);
+    animation: aurora-drift var(--mappy-aurora-drift) var(--site-ease-out) infinite alternate;
+  }
+
+  &::after {
+    background-image:
+      radial-gradient(
+        40% 44% at 72% 16%,
+        color-mix(in srgb, var(--mappy-aurora-ember) 55%, transparent) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        46% 42% at 24% 70%,
+        color-mix(in srgb, var(--mappy-aurora-jade) 48%, transparent) 0%,
+        transparent 64%
+      );
+    filter: blur(80px) saturate(110%);
+    mix-blend-mode: screen;
+    animation: aurora-shimmer var(--mappy-aurora-shimmer) ease-in-out infinite alternate;
+  }
+}
+
+// Keep page content above the aurora. (Note: .skip-link is intentionally NOT
+// here — base.scss parks it `position: absolute` offscreen; forcing it relative
+// would leave a blank line at the very top of the page.)
+#site-content,
+.site-header,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-4%, -2%, 0) scale(1.05) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.12) rotate(4deg);
+  }
+  100% {
+    transform: translate3d(-2%, 4%, 0) scale(1.04) rotate(-3deg);
+  }
+}
+
+@keyframes aurora-shimmer {
+  0% {
+    transform: translate3d(2%, 0, 0) scale(1.08);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate3d(-3%, 3%, 0) scale(1.15);
+    opacity: 1;
+  }
+}

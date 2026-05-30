@@ -1,0 +1,32 @@
+// Respects user reduced-motion preferences
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  // Freeze the shifting backdrop and floating showcase frames — keep the
+  // atmosphere as a static composition rather than continuous motion.
+  .site-aurora::before,
+  .site-aurora::after,
+  .showcase__frame {
+    animation: none !important;
+  }
+
+  .chapter-card:hover,
+  .catalog-highlight:hover,
+  .pillars article:hover,
+  .btn:hover,
+  .site-nav__cta:hover,
+  .catalog-highlight__jump:hover,
+  .trust__list-item:hover,
+  .footer-links a:hover {
+    transform: none;
+  }
+
+  .rich-help--badge:hover::after {
+    transform: translate(100%, -15%);
+  }
+}

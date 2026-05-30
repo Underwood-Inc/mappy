@@ -1,0 +1,244 @@
+// Hero band, pillar cards, buttons, eyebrow, lead
+
+.hero {
+  position: relative;
+  padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(2.5rem, 6vw, 4.5rem);
+  overflow: hidden;
+  // Transparent band so the shifting aurora reads through; a soft glow pools
+  // behind the headline and the band fades into the page below.
+  background: radial-gradient(
+      120% 90% at 50% -10%,
+      color-mix(in srgb, var(--mappy-accent-warm) 12%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--mappy-bg-deep) 35%, transparent) 78%,
+      var(--mappy-bg-deep) 100%
+    );
+
+  &__inner {
+    position: relative;
+    max-width: 62rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  h1 {
+    margin: 0 0 1.25rem;
+    font-family: var(--font-serif);
+    font-size: clamp(2.4rem, 6.5vw, 4.25rem);
+    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+
+    em {
+      font-style: italic;
+      // Gradient-clipped accent on the emphasized line for a modern headline.
+      background: linear-gradient(
+        100deg,
+        var(--mappy-fantasy-parchment) 0%,
+        var(--mappy-accent-warm) 45%,
+        color-mix(in srgb, var(--mappy-aurora-azure) 70%, var(--mappy-fantasy-parchment)) 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  &__kaomoji {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 1.15rem;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--mappy-text-muted);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7rem;
+    margin-bottom: 1.15rem;
+  }
+
+  &__note {
+    margin: 0 auto;
+    max-width: 44rem;
+    font-size: 0.95rem;
+    color: var(--mappy-text-muted);
+  }
+
+  .lead {
+    max-width: 46rem;
+    margin-inline: auto;
+  }
+}
+
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 1.1rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--mappy-accent-warm) 40%, var(--mappy-border-subtle));
+  background: color-mix(in srgb, var(--mappy-bg-panel) 55%, transparent);
+  backdrop-filter: blur(6px);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mappy-accent-warm);
+}
+
+.lead {
+  margin: 0 0 1.6rem;
+  font-size: clamp(1.08rem, 1.6vw, 1.2rem);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--mappy-text-primary) 92%, var(--mappy-text-muted));
+}
+
+// Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background var(--site-duration-fast) var(--site-ease-out),
+    border-color var(--site-duration-fast) var(--site-ease-out),
+    color var(--site-duration-fast) var(--site-ease-out),
+    transform var(--site-duration-fast) var(--site-ease-out),
+    box-shadow var(--site-duration-fast) var(--site-ease-out);
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--site-shadow-soft);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: var(--site-focus-ring);
+    outline-offset: var(--site-focus-offset);
+  }
+
+  &--primary {
+    background: color-mix(in srgb, var(--mappy-accent-warm) 28%, var(--mappy-bg-panel));
+    border-color: var(--mappy-accent-warm);
+    color: var(--mappy-fantasy-parchment);
+
+    &:hover {
+      background: color-mix(in srgb, var(--mappy-accent-warm) 42%, var(--mappy-bg-panel));
+      border-color: color-mix(in srgb, var(--mappy-accent-warm) 85%, var(--mappy-fantasy-parchment));
+      color: var(--mappy-text-primary);
+    }
+  }
+
+  &--ghost {
+    border-color: var(--mappy-border-subtle);
+    color: var(--mappy-text-primary);
+    background: color-mix(in srgb, var(--mappy-bg-panel) 70%, transparent);
+
+    &:hover {
+      border-color: var(--mappy-border-map);
+      background: color-mix(in srgb, var(--mappy-bg-panel) 92%, var(--mappy-accent-warm) 6%);
+    }
+  }
+
+  &--lg {
+    padding: 0.85rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  &--sm {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.82rem;
+  }
+}
+
+// Pillars — borderless editorial feature columns (no boxy cards).
+.pillars {
+  padding: clamp(1.5rem, 4vw, 2.75rem) 0 0.5rem;
+  background: transparent;
+
+  &__grid {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 2.25rem);
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  article {
+    --section-accent: var(--mappy-accent-warm);
+    position: relative;
+    padding: 1.4rem 0.25rem 0.25rem;
+    background: transparent;
+    border: 0;
+
+    // Thin accent rule across the top that grows from the start on hover.
+    &::before {
+      content: '';
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      width: 2.5rem;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--section-accent);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--section-accent) 60%, transparent);
+      transition: width var(--site-duration-fast) var(--site-ease-out);
+    }
+
+    &:hover::before,
+    &:focus-within::before {
+      width: 100%;
+    }
+  }
+
+  h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin: 0 0 0.55rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+    font-weight: 600;
+    color: var(--mappy-fantasy-parchment);
+  }
+
+  .pillar__kao {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--section-accent);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--mappy-text-muted);
+  }
+}
+
+// Pillar accent overrides
+.pillar {
+  &--explore { --section-accent: #6eb5e0; }
+  &--author  { --section-accent: #e09468; }
+  &--trust   { --section-accent: #7dce9a; }
+}

@@ -1,0 +1,76 @@
+// Design tokens — keep in sync with src/ui/foundation/tokens.css
+:root {
+  color-scheme: dark;
+
+  // Backgrounds
+  --mappy-bg-deep: #110d08;
+  --mappy-bg-panel: #1a1610;
+
+  // Borders
+  --mappy-border-subtle: #3a342c;
+  --mappy-border-map: #9e9783;
+
+  // Text
+  --mappy-text-primary: #e8eef7;
+  --mappy-text-muted: #98a7bd;
+
+  // Accent
+  --mappy-accent: #ceb26f;
+  --mappy-accent-warm: #ceb26f;
+  --mappy-fantasy-parchment: #e4d8be;
+  --mappy-success: #5ecf8e;
+
+  // Dot grid
+  --mappy-dot-color: color-mix(in srgb, var(--mappy-text-muted) 16%, transparent);
+  --mappy-dot-size: 15px;
+
+  // Hero band
+  --mappy-hero-bg: #0c0906;
+  --mappy-hero-bg-mid: color-mix(in srgb, var(--mappy-bg-deep) 88%, var(--mappy-bg-panel));
+  --mappy-hero-bg-end: var(--mappy-bg-deep);
+
+  // Typography
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-sans: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  // Layout
+  --max: 1180px;
+  --site-header-sticky-offset: 3.55rem;
+
+  // Rich-help / tooltips
+  --mappy-rich-help-text-decoration: underline dotted;
+  --mappy-rich-help-text-decoration-color: color-mix(
+    in srgb,
+    var(--mappy-accent-warm) 78%,
+    var(--mappy-text-muted)
+  );
+  --mappy-rich-help-cursor: help;
+
+  // Motion & interaction
+  --site-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --site-duration-fast: 0.18s;
+  --site-focus-ring: 2px solid color-mix(in srgb, var(--mappy-accent-warm) 55%, transparent);
+  --site-focus-offset: 2px;
+  --site-shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.32);
+  --site-shadow-soft: 0 4px 14px rgba(0, 0, 0, 0.18);
+
+  // Aurora — slow shifting marketing backdrop (drifts behind all content)
+  --mappy-aurora-gold: #ceb26f;
+  --mappy-aurora-azure: #5e8fd0;
+  --mappy-aurora-violet: #8a78c9;
+  --mappy-aurora-ember: #d08a5e;
+  --mappy-aurora-jade: #5ec99a;
+  --mappy-aurora-opacity: 0.5;
+  --mappy-aurora-drift: 38s;
+  --mappy-aurora-shimmer: 26s;
+
+  // Showcase float
+  --site-float-duration: 9s;
+}
+
+// Global selection colour — brand warm-gold background, deep text for contrast.
+// Applies to all manual text selections on the page.
+::selection {
+  background: color-mix(in srgb, var(--mappy-accent-warm) 55%, transparent);
+  color: var(--mappy-bg-deep);
+}

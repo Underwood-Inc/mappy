@@ -1,0 +1,484 @@
+// Catalog layout, intro, guild highlights, sticky toolbar
+
+// Highlight accent cycling colors
+$_highlight-colors: (
+  1: #ceb26f,
+  2: #6eb5e0,
+  3: #9b8fd9,
+  4: #e07aaa,
+  5: #6fcf8e,
+  6: #e09468,
+  7: #5ec9b8,
+  8: #d4b356,
+);
+
+mappy-catalog {
+  display: block;
+}
+
+.catalog {
+  padding: 2.5rem 0 3rem;
+
+  .pillars + & {
+    padding-top: 0.85rem;
+  }
+
+  &__intro {
+    margin: 0 0 1.25rem;
+    font-size: 0.95rem;
+    color: var(--mappy-text-muted);
+    line-height: 1.55;
+  }
+
+  &__intro-kao {
+    font-family: var(--font-sans);
+    font-size: 0.92em;
+    color: var(--mappy-accent-warm);
+    white-space: nowrap;
+  }
+
+  &__body--drawers {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+}
+
+// Guild favorites — flat, frameless feature grid (no heavy panel).
+.catalog-highlights {
+  margin-bottom: 2rem;
+  padding: 0;
+  border: 0;
+  background: none;
+
+  &__title {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.45rem, 2.6vw, 1.95rem);
+    color: var(--mappy-fantasy-parchment);
+  }
+
+  &__lead {
+    margin: 0 0 1.4rem;
+    font-size: 0.95rem;
+    color: var(--mappy-text-muted);
+    max-width: 44rem;
+  }
+
+  &__grid {
+    display: grid;
+    gap: 0.5rem 1.75rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1100px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+.catalog__manual-header {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  margin: 0 0 1.5rem;
+  text-align: center;
+}
+
+.catalog__manual-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mappy-accent-warm);
+}
+
+.catalog__manual-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-weight: 600;
+  color: var(--mappy-fantasy-parchment);
+}
+
+.catalog-highlight {
+  --section-accent: var(--mappy-accent-warm);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1rem 1.35rem 1.1rem;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  box-shadow: none;
+  // A single luminous accent rail on the inline-start edge — no box, no ring.
+  border-inline-start: 2px solid color-mix(in srgb, var(--section-accent) 45%, transparent);
+  transition:
+    border-color var(--site-duration-fast) var(--site-ease-out),
+    transform var(--site-duration-fast) var(--site-ease-out);
+
+  // Accent wash that fades in on hover — matches the card's own accent color.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--section-accent) 18%, transparent) 0%,
+      color-mix(in srgb, var(--section-accent) 6%, transparent) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.35s var(--site-ease-out);
+    pointer-events: none;
+  }
+
+  // Cycling accent colors
+  @each $n, $color in $_highlight-colors {
+    &:nth-child(8n + #{$n}) {
+      --section-accent: #{$color};
+    }
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  &:hover {
+    border-inline-start-color: var(--section-accent);
+    transform: translateX(2px);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .catalog-highlight__title {
+      color: var(--mappy-fantasy-parchment);
+    }
+
+    .catalog-highlight__kao {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+  }
+
+  &__title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.45rem;
+    margin: 0 0 0.55rem;
+    font-size: 1.08rem;
+    line-height: 1.3;
+    color: var(--mappy-text-primary);
+    transition: color var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  &__kao {
+    flex-shrink: 0;
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--section-accent, var(--mappy-accent-warm));
+    opacity: 0.88;
+    transition:
+      opacity var(--site-duration-fast) var(--site-ease-out),
+      transform var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  &__lede {
+    margin: 0 0 0.75rem;
+    font-size: 0.88rem;
+    color: var(--mappy-text-muted);
+    line-height: 1.5;
+  }
+
+  &__jump {
+    appearance: none;
+    // Pin to bottom-right of the card so buttons align across the row.
+    margin-top: auto;
+    align-self: flex-end;
+    border: 1px solid color-mix(in srgb, var(--section-accent) 42%, var(--mappy-border-subtle));
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--section-accent);
+    background: color-mix(in srgb, var(--mappy-bg-deep) 50%, transparent);
+    cursor: pointer;
+    transition:
+      color var(--site-duration-fast) var(--site-ease-out),
+      border-color var(--site-duration-fast) var(--site-ease-out),
+      background var(--site-duration-fast) var(--site-ease-out),
+      transform var(--site-duration-fast) var(--site-ease-out),
+      box-shadow var(--site-duration-fast) var(--site-ease-out);
+
+    &:hover {
+      color: var(--mappy-fantasy-parchment);
+      border-color: var(--mappy-accent-warm);
+      background: color-mix(in srgb, var(--mappy-accent-warm) 18%, var(--mappy-bg-deep));
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    &:focus-visible {
+      outline: var(--site-focus-ring);
+      outline-offset: var(--site-focus-offset);
+    }
+
+    &--dimmed,
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}
+
+// Sticky search/filter toolbar
+.catalog__toolbar-sticky {
+  position: sticky;
+  top: var(--site-header-sticky-offset);
+  z-index: 25;
+  margin-bottom: 0.85rem;
+  padding: 0.4rem 0;
+  background: none;
+  border: none;
+
+  // Frosted backdrop appears only once the toolbar is stuck during scroll
+  // (toggled by catalog-ui.js). A contained rounded panel — not a full-bleed
+  // banner — sized just past the toolbar content. Transparent at rest.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -0.1rem -0.75rem;
+    z-index: -1;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--mappy-bg-deep) 78%, transparent);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border: 1px solid color-mix(in srgb, var(--mappy-border-subtle) 45%, transparent);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--mappy-bg-deep) 55%, transparent);
+    opacity: 0;
+    transform: scale(0.99);
+    transition:
+      opacity 0.22s var(--site-ease-out),
+      transform 0.22s var(--site-ease-out);
+    pointer-events: none;
+  }
+
+  &.is-stuck::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Sentinel: zero-height marker placed before the sticky toolbar so an
+// IntersectionObserver can detect when the toolbar becomes stuck.
+.catalog__sticky-sentinel {
+  height: 1px;
+  margin: 0 0 -1px;
+  padding: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.catalog__toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0;
+  border: none;
+  background: none;
+
+  .btn--sm {
+    padding: 0.28rem 0.55rem;
+    font-size: 0.78rem;
+    line-height: 1.2;
+  }
+}
+
+.catalog__toolbar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+
+  @media (min-width: 640px) {
+    flex-wrap: nowrap;
+    gap: 0.45rem 0.55rem;
+  }
+
+  @media (max-width: 639px) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+  }
+}
+
+.catalog__toolbar-actions {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
+
+  @media (max-width: 639px) {
+    grid-column: 1;
+    justify-self: start;
+  }
+}
+
+.catalog__search {
+  flex: 1 1 10rem;
+  min-width: 0;
+
+  @media (max-width: 639px) {
+    grid-column: 1 / -1;
+  }
+
+  &-input {
+    width: 100%;
+    padding: 0.38rem 0.6rem;
+    border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--mappy-border-subtle) 70%, transparent);
+    background: color-mix(in srgb, var(--mappy-bg-deep) 45%, transparent);
+    color: var(--mappy-text-primary);
+    font: inherit;
+    font-size: 0.88rem;
+    line-height: 1.25;
+    cursor: text;
+    transition:
+      border-color var(--site-duration-fast) var(--site-ease-out),
+      box-shadow var(--site-duration-fast) var(--site-ease-out);
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--mappy-accent-warm) 30%, var(--mappy-border-subtle));
+    }
+
+    &:focus {
+      outline: 2px solid color-mix(in srgb, var(--mappy-accent-warm) 45%, transparent);
+      outline-offset: 1px;
+      border-color: color-mix(in srgb, var(--mappy-accent-warm) 45%, var(--mappy-border-subtle));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--mappy-accent-warm) 12%, transparent);
+    }
+
+    // Native browser clear button (Chromium / Edge)
+    &::-webkit-search-cancel-button {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      opacity: 0.5;
+      background: radial-gradient(
+        circle,
+        var(--mappy-text-muted) 40%,
+        transparent 41%
+      );
+      // Paint an × using a mask so it picks up the theme colour
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2 2l10 10M12 2L2 12' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2 2l10 10M12 2L2 12' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+      background: var(--mappy-text-muted);
+      transition: opacity var(--site-duration-fast) var(--site-ease-out);
+
+      &:hover {
+        opacity: 1;
+        background: var(--mappy-accent-warm);
+      }
+    }
+  }
+
+  &-hint {
+    margin: 0;
+    padding: 0.3rem 0 0;
+    border-top: 1px solid color-mix(in srgb, var(--mappy-border-subtle) 55%, transparent);
+    font-size: 0.7rem;
+    line-height: 1.3;
+    color: var(--mappy-text-muted);
+
+    code {
+      font-size: 0.9em;
+    }
+  }
+
+  &-empty {
+    margin: 0;
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    text-align: center;
+    color: var(--mappy-text-muted);
+    background: none;
+    border: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+}
+
+// ── Search match + scroll-target highlights ────────────────────────────────
+
+// Inline text highlight mark — wraps matched substrings inside titles / peeks.
+mark.search-mark {
+  background: color-mix(in srgb, var(--mappy-accent-warm) 72%, transparent);
+  color: var(--mappy-bg-deep);
+  border-radius: 2px;
+  padding: 0 0.15em;
+  font-weight: 600;
+}
+
+// The specific row just jumped to pulses once with a warm-gold glow.
+@keyframes target-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--mappy-accent-warm) 0%, transparent); background: none; }
+  15%  { box-shadow: 0 0 0 4px color-mix(in srgb, var(--mappy-accent-warm) 35%, transparent); background: color-mix(in srgb, var(--mappy-accent-warm) 8%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--mappy-accent-warm) 0%, transparent); background: none; }
+}
+
+.instrument-atlas__item.is-target,
+.instrument--spotlight.is-target {
+  animation: target-pulse 1.1s var(--site-ease-out) forwards;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .instrument-atlas__item.is-target,
+  .instrument--spotlight.is-target {
+    animation: none;
+    outline: 2px solid var(--mappy-accent-warm);
+    outline-offset: 2px;
+  }
+}
+
+.catalog__stats {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  color: var(--mappy-text-muted);
+  white-space: nowrap;
+
+  @media (min-width: 640px) {
+    flex: 0 1 auto;
+    margin-inline-start: auto;
+    text-align: end;
+  }
+
+  @media (max-width: 639px) {
+    grid-column: 2;
+    justify-self: end;
+    white-space: normal;
+    text-align: end;
+    max-width: 12rem;
+  }
+}

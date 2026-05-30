@@ -1,0 +1,180 @@
+// Chapter deck — map legend entries (Carta layout)
+
+.chapter-deck {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin-bottom: 2.25rem;
+
+  // Two wide cards per row by default — more room for title + peek, less clipping.
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.chapter-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid color-mix(in srgb, var(--section-accent) 18%, var(--mappy-border-subtle));
+  background: color-mix(in srgb, var(--mappy-bg-panel) 88%, var(--mappy-bg-deep));
+  cursor: pointer;
+  overflow: hidden;
+  order: var(--chapter-order, 0);
+  transition:
+    border-color var(--site-duration-fast) var(--site-ease-out),
+    background var(--site-duration-fast) var(--site-ease-out),
+    transform var(--site-duration-fast) var(--site-ease-out),
+    box-shadow var(--site-duration-fast) var(--site-ease-out);
+
+  // Accent rail that lights the inline-start edge.
+  &::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 3px;
+    background: var(--section-accent);
+    opacity: 0.55;
+    transition: opacity var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--section-accent) 45%, var(--mappy-border-subtle));
+    background: color-mix(in srgb, var(--section-accent) 9%, var(--mappy-bg-panel));
+    transform: translateY(-2px);
+    box-shadow: var(--site-shadow-soft);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .chapter-card__icon {
+      border-color: color-mix(in srgb, var(--section-accent) 55%, transparent);
+      background: color-mix(in srgb, var(--section-accent) 18%, transparent);
+    }
+
+    .chapter-card__glyph {
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 7px color-mix(in srgb, var(--section-accent) 55%, transparent));
+    }
+
+    .chapter-card__kao {
+      opacity: 1;
+      color: var(--section-accent);
+    }
+
+    .chapter-card__title {
+      color: var(--mappy-fantasy-parchment);
+    }
+  }
+
+  &:focus-visible {
+    outline: var(--site-focus-ring);
+    outline-offset: var(--site-focus-offset);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  // Icon column: glyph in a rounded accent token
+  &__icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--section-accent) 28%, transparent);
+    background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+    transition:
+      border-color var(--site-duration-fast) var(--site-ease-out),
+      background var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  &__glyph {
+    font-size: 1.3rem;
+    color: var(--section-accent);
+    line-height: 1;
+    transition:
+      transform var(--site-duration-fast) var(--site-ease-out),
+      filter var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  // Body column: title row + peek
+  &__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  &__title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  &__title {
+    flex: 0 1 auto;
+    font-family: var(--font-serif);
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--mappy-fantasy-parchment) 92%, var(--mappy-text-muted));
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  &__count {
+    flex-shrink: 0;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.1em 0.45em;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--section-accent) 16%, transparent);
+    border: 1px solid color-mix(in srgb, var(--section-accent) 28%, transparent);
+    color: color-mix(in srgb, var(--section-accent) 85%, var(--mappy-text-muted));
+    line-height: 1.5;
+  }
+
+  // Kaomoji — pushed to the end of the title row, contained within the card.
+  &__kao {
+    flex-shrink: 0;
+    margin-inline-start: auto;
+    font-size: 0.66rem;
+    line-height: 1;
+    white-space: nowrap;
+    color: color-mix(in srgb, var(--section-accent) 50%, transparent);
+    opacity: 0.6;
+    transition:
+      opacity var(--site-duration-fast) var(--site-ease-out),
+      color var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  &__peek {
+    font-size: 0.74rem;
+    line-height: 1.35;
+    color: color-mix(in srgb, var(--mappy-text-muted) 88%, transparent);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

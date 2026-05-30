@@ -1,0 +1,235 @@
+// Collapsible chapter section drawers + feature-section header
+
+.section-drawer {
+  position: relative;
+  scroll-margin-top: 5rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--section-accent) 18%, var(--mappy-border-subtle));
+  background: color-mix(in srgb, var(--mappy-bg-panel) 90%, var(--mappy-bg-deep));
+  overflow: hidden;
+  transition:
+    border-color var(--site-duration-fast) var(--site-ease-out),
+    background var(--site-duration-fast) var(--site-ease-out),
+    box-shadow var(--site-duration-fast) var(--site-ease-out);
+
+  // Accent rail along the inline-start edge.
+  &::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 3px;
+    background: var(--section-accent);
+    opacity: 0.5;
+    transition: opacity var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  &:not([open]):hover {
+    border-color: color-mix(in srgb, var(--section-accent) 34%, var(--mappy-border-subtle));
+    background: color-mix(in srgb, var(--section-accent) 5%, var(--mappy-bg-panel));
+
+    &::before {
+      opacity: 0.85;
+    }
+  }
+
+  &[open] {
+    border-color: color-mix(in srgb, var(--section-accent) 38%, var(--mappy-border-subtle));
+    box-shadow: 0 8px 28px color-mix(in srgb, var(--mappy-bg-deep) 60%, transparent);
+
+    &::before {
+      width: 4px;
+      opacity: 1;
+    }
+
+    .section-drawer__body {
+      grid-template-rows: 1fr;
+    }
+
+    .section-drawer__chev {
+      transform: rotate(45deg) translateY(-2px);
+    }
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  // Context overrides
+  .feature-section__count {
+    border-color: color-mix(in srgb, var(--section-accent) 40%, var(--mappy-border-subtle));
+    color: color-mix(in srgb, var(--section-accent) 78%, var(--mappy-text-muted));
+    background: color-mix(in srgb, var(--section-accent) 8%, var(--mappy-bg-deep));
+  }
+
+  .feature-section__kao {
+    color: var(--section-accent);
+  }
+
+  .instrument--spotlight {
+    border-color: color-mix(in srgb, var(--section-accent) 36%, var(--mappy-border-subtle));
+    background: color-mix(in srgb, var(--section-accent) 7%, var(--mappy-bg-panel));
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--section-accent) 14%, transparent);
+  }
+
+  &__summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem 1rem;
+    align-items: center;
+    padding: 1rem 1.1rem;
+    cursor: pointer;
+    list-style: none;
+    border-radius: 12px;
+    transition: background var(--site-duration-fast) var(--site-ease-out);
+
+    &:hover {
+      background: color-mix(in srgb, var(--section-accent) 9%, var(--mappy-bg-panel));
+
+      .section-drawer__glyph {
+        transform: scale(1.06);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--site-focus-ring);
+      outline-offset: -2px;
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  &__glyph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 11px;
+    border: 1px solid color-mix(in srgb, var(--section-accent) 28%, transparent);
+    background: color-mix(in srgb, var(--section-accent) 12%, transparent);
+    font-size: 1.4rem;
+    color: var(--section-accent);
+    line-height: 1;
+    transition:
+      transform var(--site-duration-fast) var(--site-ease-out),
+      border-color var(--site-duration-fast) var(--site-ease-out),
+      background var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  &__head {
+    min-width: 0;
+  }
+
+  &__chev {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-right: 2px solid var(--section-accent);
+    border-bottom: 2px solid var(--section-accent);
+    transform: rotate(-45deg) translateY(-2px);
+    transition: transform 0.2s var(--site-ease-out);
+  }
+
+  &__title {
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+    font-weight: 600;
+    color: var(--mappy-fantasy-parchment);
+  }
+
+  // Animate open/close via grid-template-rows trick.
+  // Opening: browser sets [open] → CSS transitions 0fr → 1fr naturally.
+  // Closing: JS adds .is-closing → transitions back to 0fr → removes [open].
+  &__body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s var(--site-ease-out);
+  }
+
+  &.is-closing &__body {
+    grid-template-rows: 0fr;
+  }
+
+  &__body-inner {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 1.15rem 1.1rem;
+    border-top: 1px solid color-mix(in srgb, var(--section-accent) 22%, var(--mappy-border-subtle));
+    background: color-mix(in srgb, var(--section-accent) 4%, var(--mappy-bg-deep));
+  }
+}
+
+// Feature section header (used inside section drawers)
+.feature-section {
+  &__head {
+    margin-bottom: 1.35rem;
+  }
+
+  &__title-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.45rem;
+  }
+
+  &__head h2 {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.5rem;
+    margin: 0;
+    flex: 1 1 auto;
+    min-width: min(100%, 12rem);
+    font-family: var(--font-serif);
+    font-size: clamp(1.55rem, 2.5vw, 1.9rem);
+    font-weight: 600;
+    color: var(--mappy-fantasy-parchment);
+
+    .rich-help--underline {
+      font-family: var(--font-serif);
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+  }
+
+  &__kao {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--mappy-accent-warm);
+    line-height: 1;
+  }
+
+  &__count {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mappy-text-muted);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--mappy-border-subtle) 80%, transparent);
+    background: color-mix(in srgb, var(--mappy-bg-panel) 80%, var(--mappy-bg-deep));
+  }
+
+  &__blurb {
+    margin: 0;
+    max-width: 52rem;
+    font-size: 0.94rem;
+    color: var(--mappy-text-muted);
+    line-height: 1.55;
+  }
+
+  &__blurb-kao {
+    color: var(--mappy-accent-warm);
+    white-space: nowrap;
+  }
+}

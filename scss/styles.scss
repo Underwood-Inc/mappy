@@ -1,0 +1,22 @@
+// Mappy public site — SCSS entry point
+// Compile: sass scss/styles.scss styles.css --style=expanded --no-source-map
+
+@use 'tokens';
+@use 'base';
+@use 'aurora';
+@use 'header';
+@use 'hero';
+@use 'showcase';
+@use 'catalog';
+@use 'divider';
+@use 'section-accents';
+@use 'chapter-card';
+@use 'section-drawer';
+@use 'instrument';
+@use 'trust';
+@use 'cta';
+@use 'footer';
+@use 'rich-help';
+@use 'tooltip';
+@use 'lightbox';
+@use 'reduced-motion';
