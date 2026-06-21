@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <!-- hotspot: 12 7 -->
+  <rect x="8" y="10" width="12" height="14" rx="1.5" fill="#3a2f24" stroke="#9a8560" stroke-width="1"/>
+  <rect x="12" y="7" width="12" height="14" rx="1.5" fill="#2a2118" stroke="#ceb26f" stroke-width="1.15"/>
+  <path d="M14.5 11h7M14.5 14h7M14.5 17h5" stroke="#e4c88a" stroke-width="0.9" stroke-linecap="round" opacity="0.85"/>
+</svg>
